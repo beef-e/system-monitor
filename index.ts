@@ -2,6 +2,7 @@ import os from 'os';
 import chalk from 'chalk';
 
 const log = console.log;
+
 const blue = chalk.blue;
 const green = chalk.green;
 const red = chalk.red;
@@ -21,3 +22,10 @@ os.cpus().forEach((cpu, index) => {
 	log(blue(`CPU n. ${index + 1}`));
 	log(green(`Speed: ${cpu.speed} MHz`));
 });
+
+log(blueBright(`RAM Stats`));
+log(blue(`Total: ${Math.floor(os.totalmem() / 1024 / 1024)} MB`));
+log(blue(`Free: ${Math.floor(os.freemem() / 1024 / 1024)} MB`));
+
+os.version().includes('Microsoft') && log(red(`You are using Windows subsystem for Linux`));
+log(os.version());
