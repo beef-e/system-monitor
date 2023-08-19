@@ -1,16 +1,15 @@
 {
 	"name": "node_monitor",
 	"version": "1.0.0",
-	"description": "",
+	"description": "A simple nodeJS monitor for your system",
 	"type": "module",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"build": "tsc",
-		"start": "node --loader ts-node/esm index.ts"
+		"build": "rm index.js && tsc"
 	},
 	"keywords": [],
-	"author": "",
+	"author": "Giammaria Biffi",
 	"license": "ISC",
 	"devDependencies": {
 		"@types/node": "^20.5.0",
