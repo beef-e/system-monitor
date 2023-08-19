@@ -1,5 +1,5 @@
 {
-	"name": "node_monitor",
+	"name": "nodeMonitor",
 	"version": "1.0.0",
 	"description": "A simple nodeJS monitor for your system",
 	"type": "module",
