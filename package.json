@@ -1,5 +1,5 @@
 {
-	"name": "@beef_e/nodeMonitor",
+	"name": "@beef_e/node_monitor",
 	"version": "1.0.0",
 	"description": "A simple nodeJS monitor for your system",
 	"type": "module",
