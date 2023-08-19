@@ -1,6 +1,7 @@
 import os from 'os';
 import chalk from 'chalk';
 import si from 'systeminformation';
+import figlet from 'figlet';
 
 const log = console.log;
 
@@ -18,7 +19,17 @@ const lightBrown = chalk.hex('#D1B490');
 const lightAzure = chalk.hex('#30C5FF');
 const lightGreen = chalk.hex('#157145');
 
-log(greenBright(`Hello ${os.userInfo().username}\n\n`));
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+function printName() {
+	const msg = `Hello ${os.userInfo().username}\n\n`;
+	figlet(msg, { font: 'Colossal' }, (err, data) => {
+		log(greenBright(data));
+	});
+}
+
+printName();
+await wait(350);
 
 log(lightBrown(`Your system uptime is ${Math.floor(os.uptime() / 60)} mins\n\n`));
 
@@ -77,6 +88,6 @@ await si.cpu().then((data) => {
 
 await si.osInfo().then((data) => {
 	log(lightAzure(`OS: ${data.distro}`));
-	log(azure(`Kernel: ${data.kernel}`));
+	log(azure(`Kernel Version: ${data.kernel}`));
 	log(lightAzure(`${data.logofile}`));
 });
