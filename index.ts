@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import os from 'os';
 import chalk from 'chalk';
 import si from 'systeminformation';
