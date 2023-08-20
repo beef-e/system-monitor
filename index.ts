@@ -30,6 +30,8 @@ function printName() {
 	});
 }
 
+function askChoice() {}
+
 printName();
 await wait(350);
 
