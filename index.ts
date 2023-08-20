@@ -27,8 +27,6 @@ const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 let initialChoice: string;
 
 function printName() {
-	log(grey(`Made with ❤️ by ${greenBright('beef_e')}\n`));
-
 	const msg = `Hello ${os.userInfo().username}\n`;
 	figlet(msg, { font: 'Colossal' }, (err, data) => {
 		log(greenBright(data));
@@ -36,6 +34,7 @@ function printName() {
 }
 
 async function askChoice() {
+	log(grey(`\nMade with ❤️ by ${greenBright('beef_e')}`));
 	const question = await inquirer.prompt({
 		type: 'list',
 		name: 'choice',
@@ -98,26 +97,35 @@ async function getSysInfo() {
 }
 
 async function monitorSys() {
-	log(lightBrown(`Your system uptime is ${Math.floor(os.uptime() / 60)} mins\n\n`));
+	console.clear();
+	log(lightBrown(`Your system uptime is ${Math.floor(os.uptime() / 60)} mins\n`));
+	await wait(3000);
 
-	log(blueBright(`Stats of your system CPU\n`));
-	log(azure(`CPU Architecture: ${os.arch()}`));
-	log(blueBright(`CPU Model: ${os.cpus()[0].model}\n`));
+	while (true) {
+		await si.cpuTemperature().then(async (data) => {
+			log(blueBright(`Stats of your system CPU\n`));
+			log(azure(`CPU Architecture: ${os.arch()}`));
+			log(blueBright(`CPU Model: ${os.cpus()[0].model}\n`));
 
-	await si.cpuTemperature().then((data) => {
-		os.cpus().forEach((cpu, index) => {
-			log(azure(`CPU n. ${index + 1}`));
-			log(lightGreen(`Speed: ${cpu.speed} MHz`));
-			if (data.cores[index]) {
-				log(greenBright(`Temperature: ${data.cores[index]}°C`));
-			}
-			log('\n');
+			os.cpus().forEach((cpu, index) => {
+				log(azure(`\nCPU n. ${index + 1}`));
+				log(lightGreen(`Speed: ${cpu.speed} MHz`));
+				if (data.cores[index]) {
+					log(greenBright(`Temperature: ${data.cores[index]}°C`));
+				}
+			});
+
+			log(blueBright(`RAM Stats\n`));
+			log(azure(`Total: ${Math.floor(os.totalmem() / 1024 / 1024)} MB`));
+			log(
+				azure(`Currently in use: ${Math.floor((os.totalmem() - os.freemem()) / 1024 / 1024)} MB`)
+			);
+
+			log(grey(`\nPress CTRL + C to exit`));
+
+			await wait(4000);
 		});
-	});
-
-	log(blueBright(`RAM Stats\n`));
-	log(azure(`Total: ${Math.floor(os.totalmem() / 1024 / 1024)} MB`));
-	log(azure(`Currently in use: ${Math.floor((os.totalmem() - os.freemem()) / 1024 / 1024)} MB`));
+	}
 }
 
 //! Inizio Programma
