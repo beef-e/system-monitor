@@ -55,6 +55,8 @@ async function askChoice() {
 }
 
 async function getSysInfo() {
+	console.clear();
+
 	log(blueBright('\n\nSystem Informations\n'));
 
 	await si.system().then((data) => {
@@ -73,7 +75,7 @@ async function getSysInfo() {
 		log(lightBrown(`Model: ${data.model}`));
 		log(brown(`Version: ${data.version}`));
 
-		log('\n\n');
+		log('\n');
 	});
 
 	await si.cpu().then((data) => {
@@ -86,13 +88,37 @@ async function getSysInfo() {
 			log(greenBright(`Virtualization is supported on your system`));
 		}
 
-		log('\n\n');
+		log('\n');
 	});
 
 	await si.osInfo().then((data) => {
 		log(lightAzure(`OS: ${data.distro}`));
 		log(azure(`Kernel Version: ${data.kernel}`));
 		log(lightAzure(`${data.logofile}`));
+
+		log('\n');
+	});
+
+	await si.battery().then((data) => {
+		if (data.hasBattery) {
+			log(greenBright(`Battery Status`));
+			if (data.isCharging) {
+				log(green(`Battery is currently charging`));
+			} else {
+				log(green(`You have ${data.timeRemaining} minutes of use left\t(${data.percent}%))`));
+			}
+			log(
+				greenBright(
+					`The battery max Capacity is now ${data.maxCapacity} ${data.capacityUnit} out of a original ${data.designedCapacity} ${data.capacityUnit}`
+				)
+			);
+			log(green(`Current voltage: ${data.voltage} V`));
+			log(greenBright(`Manufacturer: ${data.manufacturer}`));
+			log(green(`Model: ${data.model}`));
+			log(greenBright(`The battery is a ${data.type} type of battery`));
+		} else {
+			log(greenBright(`\nYou don't have a battery`));
+		}
 	});
 }
 
