@@ -8,14 +8,10 @@ import inquirer from 'inquirer';
 
 const log = console.log;
 
-const blue = chalk.blue;
 const green = chalk.green;
-const red = chalk.red;
 const grey = chalk.grey;
 const blueBright = chalk.blueBright;
 const greenBright = chalk.greenBright;
-const redBright = chalk.redBright;
-
 const brown = chalk.hex('#A44A3F');
 const azure = chalk.hex('#7776BC');
 const lightBrown = chalk.hex('#D1B490');
